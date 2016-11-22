@@ -10,13 +10,13 @@ much money, really? Before learning about unix command line utilities I would
 have said it's too many to tell. I mean, just look at this mess:
 
 <pre>
-E.    Approve Schafer Family Foundation $50,000 Donation for repair to
+E.    Approve XXXXXXX Family Foundation $50,000 Donation for repair to
 Football Field and / or Equipment (Approve)    
 
 
 Motion___________________                 Second___________________
     
-F.      Approve Football Jersey $1,176 Donation from Sean & Natalie McElmury   
+F.      Approve Football Jersey $1,176 Donation from XXXX & XXXXXXX XXXXXXXX   
       (Action).
 
 
@@ -44,7 +44,7 @@ Motion___________________                 Second___________________
 
 
     
-I.    Ag Department Ford 8N Tractor Donation by Dennis Webber.  Donated to Ag
+I.    Ag Department Ford 8N Tractor Donation by XXXXXX XXXXXXX  Donated to Ag
          Mechanics for repair, restoration, and resale / fundraiser. (Action)
 
 
@@ -63,7 +63,7 @@ In OSX, the system pasteboard is accessible from the command line using [pbcopy
 and pbpaste][1]. All we need to do to get the raw text into terminal was to copy
 from its original location (a browser window in this case) and then use pbpaste.
 
-<code>pbpaste</code>
+<code>$ pbpaste</code>
 
 ## Step two: grep
 
@@ -71,16 +71,16 @@ Grep has spent the last 42 years single-mindedly carrying out its mission:
 [to "print lines matching a pattern"][plmp]. After reading a bit of the [Wikipedia
 entry][wi] I think this post is doubly indebted to this utility. Firstly, and
 most obviously, I used it to accomplish what I wanted to do. The other reason is
-that, according to at least on commentator, I have grep to thank for
+that, according to at least one commentator, I have grep to thank for
 "irrevocably ingraining" the unix convention of [small, composable tools][sct]
 that is the basis of this post.
 
 Grep was the first tool that came to mind when I started thinking about ways to
 get the numbers out from among all those letters and symbols and spaces. But I
 was skeptical. It says right on the can that grep prints "lines". The donation
-data at times has multiple comments, meaning the amounts for more than one
-donation sometimes end up on the same row. On the [man page][plmp] I found the
--o option with the following description:
+data at times has two columns, meaning the amounts for more than one donation
+sometimes end up on the same row. On the [man page][plmp] I found the -o option
+with the following description:
 
 > Print only the matched (non-empty) parts of a matching line, with each such
 > part on a separate output line.
@@ -90,7 +90,7 @@ non-numbers. We'll use the -E option (for extended regex) with the pattern
 '[0-9]{1,6},*[0-9]{1,6}'. The comma in the middle was required because only some
 of the donations of at least four figures use commas.
 
-<code>grep -Eo '[0-9]{1,6},*[0-9]{1,6}'</code>
+<code>| grep -Eo '[0-9]{1,6},*[0-9]{1,6}'</code>
 
 ## Step three: tr
 
@@ -103,7 +103,7 @@ post, but I digress. One answer to this dilemma is the utility [tr][tr]. tr can
 "translate or delete characters." We're going to ask it to delete our commas
 using the -d argument.
 
-<code>tr -d ','</code>
+<code>| tr -d ','</code>
 
 ## Step four: awk
 
@@ -116,14 +116,14 @@ this by appending an <code>END</code> block with a print statement and a comma
 separate list with two items, to values of <code>sum</code> and the built-in
 variable <code>NR</code> (aka the number of donations).
 
-<code>awk '{ sum+=$1} END {print sum, NR + 1}'</code>
+<code>| awk '{ sum+=$1} END {print sum, NR + 1}'</code>
 
 ## All together now
 
 ### The command
 
-<code>pbpaste | grep -Eo '[0-9]{1,6},*[0-9]{1,6}' | tr -d , | awk '{ sum+=$1}
-END {print sum, NR}'</code>
+<code>$ pbpaste | grep -Eo '[0-9]{1,6},*[0-9]{1,6}' | tr -d , | awk '{ sum+=$1}
+	END {print sum, NR}'</code>
 
 ### The result
 
