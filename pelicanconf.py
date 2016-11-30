@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Andrew Eggenberger'
 SITENAME = u'Coding stuff and things'
-SITEURL = ''
+SITEURL = u'https://aeggenberger.github.io'
 
 PATH = 'content'
 
@@ -26,10 +26,10 @@ LINKS = (('Pelican', 'http://getpelican.com/'),
          ('You can modify those links in your config file', '#'),)
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('Twitter', 'https://twitter.com/eggandburger'),
+          ('Email', 'mailto:andrew.eggenberger@gmail.com'),)
 
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+# RELATIVE_URLS = True
