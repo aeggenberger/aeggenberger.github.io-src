@@ -113,7 +113,7 @@ following short awk program will add each line to the total of all the previous
 lines: <code>{ sum+=$1}</code>. After adding up all the lines, we want to print
 the total, the final value of the variable <code>sum</code>. We'll accomplish
 this by appending an <code>END</code> block with a print statement and a comma
-separate list with two items, to values of <code>sum</code> and the built-in
+separate list with two items, the output of <code>sum</code> and the built-in
 variable <code>NR</code> (aka the number of donations).
 
 <code>| awk '{ sum+=$1} END {print sum, NR + 1}'</code>
