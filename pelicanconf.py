@@ -31,5 +31,10 @@ SOCIAL = (('Twitter', 'https://twitter.com/eggandburger'),
 
 DEFAULT_PAGINATION = 10
 
+# Make All Posts Drafts By Default
+DEFAULT_METADATA = {
+    'status': 'draft',
+}
+
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True
